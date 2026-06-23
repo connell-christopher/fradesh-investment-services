@@ -331,8 +331,8 @@ placeholder="Company Name (Optional)">
 <textarea
 placeholder="Tell us how we can help">
 </textarea>
-
-<button class="btn">
+    
+<button id="bookBtn" class="btn">
 Book Appointment
 </button>
 
@@ -466,15 +466,28 @@ const db = getFirestore(app);
 window.saveOrder = async (orderData) => {
   await addDoc(collection(db, "orders"), orderData);
 };
+document.getElementById("bookBtn").addEventListener("click", async () => {
 
-await saveOrder({
-  name: "Customer Name",
-  phone: "08012345678",
-  product: "Family Bread",
-  quantity: 2,
-  createdAt: new Date()
+  const name = document.getElementById("fullName").value;
+  const phone = document.getElementById("phone").value;
+  const email = document.getElementById("email").value;
+
+  try {
+    await addDoc(collection(db, "orders"), {
+      name,
+      phone,
+      email,
+      createdAt: new Date()
+    });
+
+    alert("Booking submitted!");
+
+  } catch (error) {
+    console.error(error);
+    alert("Failed to submit booking");
+  }
+
 });
-    
 </script>
     
 
