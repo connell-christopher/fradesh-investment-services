@@ -446,5 +446,37 @@ alt="Facebook">
 
 </footer>
 
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBivogCTs2k43CHHO4oYydoH2cJYYncTks",
+  authDomain: "fradesh-investment-services.firebaseapp.com",
+  projectId: "fradesh-investment-services",
+  storageBucket: "fradesh-investment-services.firebasestorage.app",
+  messagingSenderId: "26226841223",
+  appId: "1:26226841223:web:052b1408048a383a9f0a22",
+  measurementId: "G-D9FF9KESHW"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.saveOrder = async (orderData) => {
+  await addDoc(collection(db, "orders"), orderData);
+};
+
+await saveOrder({
+  name: "Customer Name",
+  phone: "08012345678",
+  product: "Family Bread",
+  quantity: 2,
+  createdAt: new Date()
+});
+    
+</script>
+    
+
 </body>
 </html>
